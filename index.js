@@ -1,36 +1,38 @@
-//Required Modules
+//required node modules
 const fs = require("fs");
 const inquirer = require("inquirer");
+const path = require("path");
 
 //Adding Readme file
-const Readme = require("./readme-generator");
+//const Readme = require("./readme-generator");
 
-// Import classes
+// importing team profiles
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 
+//teamMembers empty array
+const teamMembers = [];
+
+// linking to HTML template
+const templateHtml = require("./src/templateHTML");
+
 // Output Directory
 const DIST_DIR = path.resolve(__dirname, "dist");
+
 // Output file path and name
-const outputPath = path.join(DIST_DIR, "teamGenerator.html");
+const outputPath = path.join(DIST_DIR, "teamProfile.html");
 
-// Import HTML template
-const templateHtml = require("./src/template-html");
+//team members
 
-/* -------------------------------------- */
-/*               Team Members             */
-/* -------------------------------------- */
-
-function addTeamMember() {
+function addMember() {
   inquirer
     .prompt([
       {
         type: "list",
         name: "what_team_member",
-        message:
-          "Add an engineer, Add an intern or finish assembling your team?",
-        choices: ["Engineer", "Intern", "Assemble Team!"],
+        message: "Add an engineer, Add an intern or assemble a team",
+        choices: ["Engineer", "Intern", "assemble a team"],
       },
     ])
     .then((val) => {
@@ -43,11 +45,8 @@ function addTeamMember() {
       }
     });
 }
-/* -------------------------------------- */
-/*               Job titles               */
-/* -------------------------------------- */
-
-/* -------- Get manager data inputs ------ */
+//creating job titles
+// Get manager data inputs
 
 function addManager() {
   inquirer
@@ -69,8 +68,8 @@ function addManager() {
       },
       {
         type: "input",
-        name: "imgSrc",
-        message: "What is the imgSrc of the team manager?",
+        name: "officeNumber",
+        message: "What is the office number of the team manager?",
       },
     ])
     .then((answers) => {
@@ -78,15 +77,15 @@ function addManager() {
         answers.name,
         answers.id,
         answers.email,
-        answers.imgSrc
+        answers.officeNumber
       );
       console.table(manager);
       teamMembers.push(manager);
-      addTeamMember();
+      addMember();
     });
 }
 
-/* -------- Get engineer data inputs ------ */
+//Get engineer data input//
 function addEngineer() {
   inquirer
     .prompt([
@@ -107,8 +106,8 @@ function addEngineer() {
       },
       {
         type: "input",
-        name: "imgSrc",
-        message: "What is the imgSrc of the team engineer?",
+        name: "gitHub",
+        message: `What is the engineer's github profile name?`,
       },
     ])
     .then((answers) => {
@@ -116,14 +115,14 @@ function addEngineer() {
         answers.name,
         answers.id,
         answers.email,
-        answers.imgSrc
+        answers.gitHub
       );
       console.table(engineer);
       teamMembers.push(engineer);
-      addTeamMember();
+      addMember();
     });
 }
-/* -------- Get engineer data inputs ------ */
+//Get engineer data inputs //
 function addIntern() {
   inquirer
     .prompt([
@@ -144,8 +143,8 @@ function addIntern() {
       },
       {
         type: "input",
-        name: "imgSrc",
-        message: "What is the imgSrc of the team intern?",
+        name: "school",
+        message: `What school did the intern go to?`,
       },
     ])
     .then((answers) => {
@@ -153,29 +152,25 @@ function addIntern() {
         answers.name,
         answers.id,
         answers.email,
-        answers.imgSrc
+        answers.school
       );
       console.table(intern);
       teamMembers.push(intern);
-      addTeamMember();
+      addMember();
     });
 }
-/* -------------------------------------- */
-/*           Creating html file           */
-/* -------------------------------------- */
+//creating html file
 
 function createFile() {
   if (!fs.existsSync(DIST_DIR)) {
     fs.mkdirSync(DIST_DIR);
   } else {
-    fs.writeFileSync(outputPath, templateHtml(teamMembers), "utf-8");
+    fs.writeFileSync(outputPath, templateHtml("teamMembers"), "utf-8");
     console.log("HTML file created in the dist folder");
   }
 }
 
-/* -------------------------------------- */
-/*         Starting the application       */
-/* -------------------------------------- */
+//starting application
 
 function startApp() {
   addManager();
