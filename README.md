@@ -26,11 +26,11 @@ Use the following command in your project folder: npm i inquirer@8.2.4. to insta
 
 AS A manager
 I WANT to generate a webpage that displays my team's basic info
-SO THAT I have quick access to their emails and GitHub profiless
+SO THAT I have quick access to their emails and GitHub profiles
 
 ### Instructions
 
-[Video walkthrough link]()
+[Video walk through link]()
 
 ## Tests
 
