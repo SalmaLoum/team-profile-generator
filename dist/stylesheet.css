@@ -1,0 +1,10 @@
+/* Element Selectors */
+body {
+  font-family: "Times New Roman", Times, serif;
+  background-color: black;
+}
+
+h1,
+h2 {
+  font-weight: 700;
+}
