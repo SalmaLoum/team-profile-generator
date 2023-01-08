@@ -31,14 +31,16 @@ function addMember() {
       {
         type: "list",
         name: "what_team_member",
-        message: "Add an engineer, Add an intern or assemble a team",
-        choices: ["Engineer", "Intern", "assemble a team"],
+        message: "Add a manager, an engineer, an intern to create the team",
+        choices: ["Manager", "Engineer", "Intern", "create the team"],
       },
     ])
-    .then((val) => {
-      if (val.what_team_member === "Engineer") {
+    .then((answers) => {
+      if (answers.what_team_member === "Manager") {
+        addManager();
+      } else if (answers.what_team_member === "Engineer") {
         addEngineer();
-      } else if (val.what_team_member === "Intern") {
+      } else if (answers.what_team_member === "Intern") {
         addIntern();
       } else {
         createFile();
@@ -69,7 +71,7 @@ function addManager() {
       {
         type: "input",
         name: "officeNumber",
-        message: "What is the office number of the team manager?",
+        message: `What is the office number of the team manager?`,
       },
     ])
     .then((answers) => {
@@ -165,7 +167,7 @@ function createFile() {
   if (!fs.existsSync(DIST_DIR)) {
     fs.mkdirSync(DIST_DIR);
   } else {
-    fs.writeFileSync(outputPath, templateHtml("teamMembers"), "utf-8");
+    fs.writeFileSync(outputPath, templateHtml(teamMembers), "utf-8");
     console.log("HTML file created in the dist folder");
   }
 }
