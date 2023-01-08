@@ -34,7 +34,8 @@ AS A manager
 
 Follow the steps in this video to start the application
 ![app](./assets/app_gif.gif)
-[Video walk through link]()
+
+[Video walk through link](https://drive.google.com/open?id=1ZWPFeOXThS4fRTbNBTT3kN5gIabYNtLF&authuser=0&usp=drive_link)
 
 ## Tests
 
