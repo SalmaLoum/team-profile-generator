@@ -1,72 +1,71 @@
 //required node modules
 const fs = require('fs')
 const inquirer = require('inquirer')
-const path = require('path')
 
-//Adding Readme file
-//const Readme = require("./readme-generator");
-
-// importing team profiles
+//importing team profiles
+const Employee = require('./lib/Employee')
 const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
 
-//teamMembers empty array
-const teamMembers = []
+//linking to HTML template
+const generateHtml = require('./utils/templateHTML')
 
-// linking to HTML template
-const templateHtml = require('./src/templateHTML')
+//teamMembers empty array, put data in this array every class we generate
+const employeeMembers = []
 
-// Output Directory
-const DIST_DIR = path.resolve(__dirname, 'dist')
+//creating html file
+function writeToFile(fileName, data) {
+  fs.writeFile(fileName, generateHtml(employeeMembers), (err) =>
+    err
+      ? console.log(err)
+      : console.log('HTML file created in the root folder'),
+  )
+}
 
-// Output file path and name
-const outputPath = path.join(DIST_DIR, 'teamProfile.html')
-
-//team members
-
-function addMember() {
+//Creating main questions for all team members.
+function memberQu() {
   inquirer
     .prompt([
       {
         type: 'list',
-        name: 'what_team_member',
-        message: 'Add a manager, an engineer, an intern to create the team',
+        message: 'Choose a team member to create your team profile page',
         choices: ['Manager', 'Engineer', 'Intern', 'create the team'],
+        name: 'team_member',
       },
     ])
     .then((answers) => {
-      if (answers.what_team_member === 'Manager') {
+      if (answers.team_member === 'Manager') {
         addManager()
-      } else if (answers.what_team_member === 'Engineer') {
+      } else if (answers.team_member === 'Engineer') {
         addEngineer()
-      } else if (answers.what_team_member === 'Intern') {
+      } else if (answers.team_member === 'Intern') {
         addIntern()
       } else {
         createFile()
       }
     })
 }
+
 //creating job titles
 // Get manager data inputs
-
 function addManager() {
   inquirer
     .prompt([
       {
         type: 'input',
         name: 'name',
-        message: 'What is the name of the team manager?',
+        message: 'What is your manager full name?',
       },
       {
         type: 'input',
         name: 'id',
-        message: 'Employee ID of the team manager?',
+        message: 'What is the employee ID of the manager?',
       },
       {
         type: 'input',
         name: 'email',
-        message: 'Email address of the team manager?',
+        message: 'What is the email address of the team manager?',
       },
       {
         type: 'input',
@@ -82,8 +81,8 @@ function addManager() {
         answers.officeNumber,
       )
       console.table(manager)
-      teamMembers.push(manager)
-      addMember()
+      employeeMembers.push(manager)
+      return memberQu()
     })
 }
 
@@ -99,12 +98,12 @@ function addEngineer() {
       {
         type: 'input',
         name: 'id',
-        message: 'Employee ID of the team engineer?',
+        message: 'What is the employee ID of the team engineer?',
       },
       {
         type: 'input',
         name: 'email',
-        message: 'Email address of the team engineer?',
+        message: 'What is the email address of the team engineer?',
       },
       {
         type: 'input',
@@ -120,8 +119,8 @@ function addEngineer() {
         answers.gitHub,
       )
       console.table(engineer)
-      teamMembers.push(engineer)
-      addMember()
+      employeeMembers.push(engineer)
+      return memberQu()
     })
 }
 //Get engineer data inputs //
@@ -136,12 +135,12 @@ function addIntern() {
       {
         type: 'input',
         name: 'id',
-        message: 'Employee ID of the team intern?',
+        message: 'What is the employee ID of the team intern?',
       },
       {
         type: 'input',
         name: 'email',
-        message: 'Email address of the team intern?',
+        message: 'What is the email address of the team intern?',
       },
       {
         type: 'input',
@@ -157,23 +156,16 @@ function addIntern() {
         answers.school,
       )
       console.table(intern)
-      teamMembers.push(intern)
-      addMember()
+      employeeMembers.push(intern)
+      return memberQu()
     })
 }
-//creating html file
 
 function createFile() {
-  if (!fs.existsSync(DIST_DIR)) {
-    fs.mkdirSync(DIST_DIR)
-  } else {
-    fs.writeFileSync(outputPath, templateHtml(teamMembers), 'utf-8')
-    console.log('HTML file created in the dist folder')
-  }
+  writeToFile('teamProfile.html', employeeMembers)
 }
 
 //starting application
-
 function startApp() {
   addManager()
 }

@@ -1,0 +1,17 @@
+/* Element Selectors */
+body {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+h1 {
+  font-size: 60px;
+  align-items: center;
+  color: #7bb397;
+}
+h2 {
+  font-weight: 700;
+}
+.navbar-brand {
+  font-size: 60px;
+  text-align: center;
+}
