@@ -32,16 +32,17 @@ AS A manager
 
 ## Instructions
 
-Follow the steps in this video to start the application
-![app](./assets/app_gif.gif)
+![app](./assets/images/team-profile.png)
 
-[Video walk through link](https://drive.google.com/open?id=1ZWPFeOXThS4fRTbNBTT3kN5gIabYNtLF&authuser=0&usp=drive_link)
+Follow the steps in this video to start the application
+
+[Video walk through link](https://drive.google.com/file/d/1yiHNXwqNUrXO2etfWjyocLQCm36SVJ_W/view?usp=share_link)
 
 ## Tests
 
 Run `npm test` to run Jest for tests.
 
-![test](./assets/test.png)
+![test](./assets/images/test.png)
 
 ## Credits
 
