@@ -61,8 +61,7 @@ const teamRender = (team) => {
 >
   <div id= "intern-card" class="card-header"><h1>Intern</h1></div>
   <div class="card-body">
-  <h5 class="card-title"> 
-  <i class="bi bi-mortarboard"> ${intern.name}</h5>
+  <h5 class="card-title"> ${intern.name}</h5>
   <p class="card-text">
       <ul class="list-group">
       <li class="list-group-item list-group-item-success"> Email:
@@ -137,7 +136,7 @@ const mainHTML = (team) => `
         rel="stylesheet"
         />
 
-        <link rel="stylesheet" href="./assets/css/stylesheet.css />
+        <link rel="stylesheet" href="./assets/css/stylesheet.css" />
     </head>
 
 
